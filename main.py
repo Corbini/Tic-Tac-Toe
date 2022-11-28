@@ -1,6 +1,15 @@
 from enum import Enum
+
+# terminal input check
 import re
+
+# cpu input
 import random
+
+# window lib
+import sys
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 
 
 class Players(Enum):
@@ -114,21 +123,34 @@ class Map:
         print(text)
 
 
-class Window:
-    def __init__(self):
-        # Create window handle
-
-        pass
+class Window(QMainWindow):
+    def __init__(self, qapp):
+        self.app = qapp
+        super().__init__()
+        self.setWindowTitle("Tic Tac Toe")
+        self.show()
+        self.start_window()
 
     def game_window(self, game_map):
         # Create game stage
-
+        self.clear()
         pass
+
+    def clear(self):
+        children = self.children()
+        for child in children[1:]:
+            child.deleteLater()
 
     def start_window(self):
+        self.clear()
         # Create start stage
 
-        pass
+        button = QPushButton("New game")
+        button.setCheckable(True)
+        button.clicked.connect(self.game_window)
+        self.setCentralWidget(button)
+
+        self.app.exec()
 
     def end_window(self):
         # Create end stage
@@ -212,6 +234,10 @@ def terminal_game_mode():
 
 def main():
     print("Hello")
+
+    app = QApplication(sys.argv)
+    game = Window(app)
+    #game.start_window()
 
     terminal_game_mode()
 

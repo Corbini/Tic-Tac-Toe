@@ -1,8 +1,15 @@
 
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QPushButton, QVBoxLayout, QGridLayout
-from PyQt6.QtGui import QIcon, QFont, QPixmap, QMovie, QRegion
-from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
+
+
+class TextBox(QLabel):
+    def __init__(self, text):
+        super(TextBox, self).__init__(text)
+        self.setFont(QFont('Julee', 32))
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
 
 class Button(QLabel):
@@ -10,6 +17,8 @@ class Button(QLabel):
         super(Button, self).__init__()
         self.setFixedSize(image.size())
         self.setPixmap(image)
+        self.setLayout(QVBoxLayout())
+        self.layout().addWidget(TextBox(text))
         pass
 
 

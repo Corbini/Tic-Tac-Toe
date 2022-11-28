@@ -3,7 +3,6 @@ from window import *
 from terminal import *
 
 
-
 def main():
     print("Hello")
 

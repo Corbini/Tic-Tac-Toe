@@ -1,6 +1,7 @@
-from map import *
-from window import *
-from terminal import *
+from window import Window
+from terminal import terminal_game_mode
+from PyQt6.QtWidgets import QApplication
+import sys
 
 
 def main():
@@ -9,7 +10,7 @@ def main():
     app = QApplication(sys.argv)
     game = Window(app)
     app.exec()
+    # terminal_game_mode()
 
 
-random.seed()
 main()

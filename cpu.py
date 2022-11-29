@@ -2,6 +2,9 @@
 import random
 
 
+random.seed()
+
+
 def get_computer_mark():
     # randomize computer input
 

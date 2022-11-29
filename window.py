@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel, QMainWindow
 from PyQt6.QtGui import *
-from graphic_map import GraphicMap
+from graphic_map import GraphicMap, Results
 from buttons import Button, TextBox
 
 
@@ -21,7 +21,7 @@ class Window(QMainWindow):
         # Starting mode
         self.start_window()
 
-    def game_window(self, game_map):
+    def game_window(self, action=None):
         # Create game stage
         self.clear()
 
@@ -36,15 +36,15 @@ class Window(QMainWindow):
         self.add_text("Cpu", 751, 22, 400, 100)
 
         # Gen map
-        GraphicMap(self.layout(), self.end_window)
+        self.map = GraphicMap(self.layout(), self.end_window)
 
     def clear(self):
         children = self.children()
         for child in children[2:]:
             child.deleteLater()
 
-    def add_text(self, text, x, y, width, height):
-        text = TextBox(text, width, height)
+    def add_text(self, text, x, y, width, height, font_size=32):
+        text = TextBox(text, width, height, font_size)
         text.move(x, y)
         self.layout().addWidget(text)
 
@@ -55,7 +55,7 @@ class Window(QMainWindow):
         button.move(x, y)
         self.layout().addWidget(button)
 
-    def start_window(self):
+    def start_window(self, action=None):
         # Clearing window
         self.clear()
 
@@ -73,7 +73,26 @@ class Window(QMainWindow):
         self.add_button(button_png, "Quit", self.close, 490, 770)
 
     def end_window(self):
-        self.clear()
-        # Create end stage
+
+        # get Result
+        text = ""
+        match self.map.result:
+            case Results.draw:
+                text = "Draw"
+            case Results.X_won:
+                text = "Victory"
+            case Results.O_won:
+                text = "Defeat"
+
+        # Create Result Screen
+        result_screen = QPixmap('images/Result_Window.png')
+        self.add_button(result_screen, "", None, 353, 276)
+        self.add_text(text, 353, 276, 545, 130, 96)
+
+        # Add button
+        result_options = QPixmap("images/Result_Options.png")
+        self.add_button(result_options, "Another round", self.game_window, 368, 406)
+        self.add_button(result_options, "to menu", self.start_window, 633, 406)
+
         pass
 

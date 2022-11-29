@@ -11,6 +11,7 @@ class GraphicMap:
         self.map = Map()
         self.screen = screen
         self.ending = ending
+        self.result = Results.running
 
         self.buttons = [[0 for x in range(3)] for y in range(3)]
         self.player_x = QPixmap('images/X_Player.png')
@@ -40,22 +41,28 @@ class GraphicMap:
         self.buttons[map_coord[0]][map_coord[1]] = button
         pass
 
+    def update(self):
+        self.result = self.map.check_result()
+
+        if self.result is not Results.running:
+            self.ending()
+
     def interact(self, button, map_coord, player, event):
         if self.map.mark_place(map_coord, player):
             button.image(self.player_x)
 
-            if self.map.check_result() is not Results.running:
-                self.ending()
+            self.update()
 
-            self.cpu_interact()
+            if self.result == Results.running:
+                self.cpu_interact()
 
     def cpu_interact(self):
+        # get move
         cpu_move = get_computer_mark()
         while not self.map.mark_place(cpu_move, Players.O):
             cpu_move = get_computer_mark()
 
-        print(cpu_move)
+        # print move
         self.buttons[cpu_move[0]][cpu_move[1]].image(self.player_o)
 
-        if self.map.check_result() is not Results.running:
-            self.ending()
+        self.update()

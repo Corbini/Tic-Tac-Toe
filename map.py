@@ -31,9 +31,9 @@ class Map:
         # win check for player
 
         # line up-down
-        for column in range(0, 2):
+        for column in range(0, 3):
             flag = True
-            for row in range(0, 2):
+            for row in range(0, 3):
                 if self.structure[column][row] != player.value:
                     flag = False
                     break
@@ -41,9 +41,9 @@ class Map:
                 return True
 
         # line left-right
-        for row in range(0, 2):
+        for row in range(0, 3):
             flag = True
-            for column in range(0, 2):
+            for column in range(0, 3):
                 if self.structure[column][row] != player.value:
                     flag = False
                     break
@@ -52,7 +52,7 @@ class Map:
 
         # crosses
         flag = True
-        for diagonal in range(0, 2):
+        for diagonal in range(0, 3):
             if self.structure[diagonal][diagonal] != player.value:
                 flag = False
                 break
@@ -60,7 +60,7 @@ class Map:
             return True
 
         flag = True
-        for diagonal in range(0, 2):
+        for diagonal in range(0, 3):
             if self.structure[diagonal][2 - diagonal] != player.value:
                 flag = False
                 break

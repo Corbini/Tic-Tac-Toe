@@ -35,7 +35,7 @@ class GraphicMap:
                 self.screen.addWidget(button)
 
     def add_button(self, column, row, width, high, map_coord):
-        button = Button("")
+        button = Button("", None)
         button.mousePressEvent = partial(self.interact, button, map_coord, Players.X)
         button.move(column, row)
         self.buttons[map_coord[0]][map_coord[1]] = button

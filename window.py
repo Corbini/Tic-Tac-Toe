@@ -49,8 +49,7 @@ class Window(QMainWindow):
         self.layout().addWidget(text)
 
     def add_button(self, button_png, text, func, x, y):
-        button = Button(text)
-        button.image(button_png)
+        button = Button(text, button_png)
         button.mousePressEvent = func
         button.move(x, y)
         self.layout().addWidget(button)

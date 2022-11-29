@@ -12,10 +12,13 @@ class TextBox(QLabel):
 
 
 class Button(QLabel):
-    def __init__(self, text):
+    def __init__(self, text, button_png):
         super(Button, self).__init__()
         self.setLayout(QVBoxLayout())
-        self.layout().addWidget(TextBox(text, 300, 100, 32))
+        if button_png is not None:
+            self.image(button_png)
+            size = button_png.size()
+            self.layout().addWidget(TextBox(text, size.width(), size.height(), 30))
         pass
 
     def image(self, image):
